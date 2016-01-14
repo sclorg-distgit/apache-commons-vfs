@@ -1,0 +1,155 @@
+diff -Nru commons-vfs-2.0/core/pom.xml commons-vfs-2.0-gil/core/pom.xml
+--- commons-vfs-2.0/core/pom.xml	2011-08-18 15:57:10.000000000 +0200
++++ commons-vfs-2.0-gil/core/pom.xml	2012-06-18 11:47:33.151985239 +0200
+@@ -40,7 +40,7 @@
+       <artifactId>commons-logging</artifactId>
+     </dependency>
+     <dependency>
+-      <groupId>ant</groupId>
++      <groupId>org.apache.ant</groupId>
+       <artifactId>ant</artifactId>
+       <optional>true</optional>
+     </dependency>
+@@ -64,11 +64,11 @@
+       <artifactId>commons-httpclient</artifactId>
+       <optional>true</optional>
+     </dependency>
+-    <dependency>
++    <!--dependency>
+       <groupId>org.apache.jackrabbit</groupId>
+       <artifactId>jackrabbit-webdav</artifactId>
+       <optional>true</optional>
+-    </dependency>
++    </dependency-->
+     <dependency>
+       <groupId>com.jcraft</groupId>
+       <artifactId>jsch</artifactId>
+@@ -167,6 +167,37 @@
+         </configuration>
+       </plugin>
+ 
++      <plugin>
++        <groupId>org.apache.maven.plugins</groupId>
++        <artifactId>maven-compiler-plugin</artifactId>
++        <executions>
++          <execution>
++            <id>default-compile</id>
++            <phase>compile</phase>
++            <configuration>
++              <excludes>
++                <exclude>**/webdav/*</exclude>
++              </excludes>
++            </configuration>
++            <goals>
++              <goal>compile</goal>
++            </goals>
++          </execution>
++          <execution>
++            <id>default-testCompile</id>
++            <phase>test-compile</phase>
++            <configuration>
++              <testExcludes>
++                <exclude>**/webdav/test/*</exclude>
++              </testExcludes>
++            </configuration>
++            <goals>
++              <goal>testCompile</goal>
++            </goals>
++          </execution>
++        </executions>
++      </plugin>
++
+     </plugins>
+   </build>
+   <profiles>
+diff -Nru commons-vfs-2.0/pom.xml commons-vfs-2.0-gil/pom.xml
+--- commons-vfs-2.0/pom.xml	2011-08-18 15:57:11.000000000 +0200
++++ commons-vfs-2.0-gil/pom.xml	2012-06-18 11:53:03.379995343 +0200
+@@ -187,14 +187,14 @@
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-checkstyle-plugin</artifactId>
+       </plugin>
+-      <plugin>
++      <!--plugin>
+         <groupId>org.apache.commons</groupId>
+         <artifactId>commons-build-plugin</artifactId>
+-        <!-- version inherited from commons-parent -->
++        < version inherited from commons-parent >
+         <configuration>
+             <commons.release.name>commons-${commons.componentid}-${commons.release.version}</commons.release.name>
+         </configuration>
+-      </plugin>
++      </plugin-->
+     </plugins>
+   </build>
+ 
+@@ -243,9 +243,10 @@
+             </tag>
+           </tags>
+           <aggregate>true</aggregate>
++          <excludePackageNames>*.webdav.*</excludePackageNames>
+         </configuration>
+       </plugin>
+-      <plugin>
++      <!--plugin>
+         <groupId>org.codehaus.mojo</groupId>
+         <artifactId>findbugs-maven-plugin</artifactId>
+         <version>2.3.2</version>
+@@ -254,7 +255,7 @@
+           <effort>Default</effort>
+           <excludeFilterFile>findbugs-exclude-filter.xml</excludeFilterFile>
+        </configuration>
+-      </plugin>
++      </plugin-->
+     </plugins>
+   </reporting>
+ 
+@@ -273,11 +274,11 @@
+         <type>test-jar</type>
+         <scope>test</scope>
+       </dependency>
+-      <dependency>
++      <!--dependency>
+         <groupId>org.apache.commons</groupId>
+         <artifactId>commons-vfs-sandbox</artifactId>
+         <version>${project.version}</version>
+-      </dependency>
++      </dependency-->
+       <dependency>
+         <groupId>org.apache.commons</groupId>
+         <artifactId>commons-vfs-examples</artifactId>
+@@ -310,13 +311,13 @@
+         <artifactId>commons-compress</artifactId>
+         <version>1.1</version>
+       </dependency>
+-      <dependency>
++      <!--dependency>
+         <groupId>org.apache.jackrabbit</groupId>
+         <artifactId>jackrabbit-webdav</artifactId>
+         <version>1.5.2</version>
+-      </dependency>
++      </dependency-->
+       <dependency>
+-        <groupId>ant</groupId>
++        <groupId>org.apache.ant</groupId>
+         <artifactId>ant</artifactId>
+         <version>1.6.2</version>
+       </dependency>
+@@ -349,7 +350,7 @@
+     </dependencies>
+   </dependencyManagement>
+ 
+-  <dependencies>
++  <!--dependencies>
+     <dependency>
+       <groupId>org.apache.maven.scm</groupId>
+       <artifactId>maven-scm-api</artifactId>
+@@ -360,7 +361,7 @@
+       <artifactId>maven-scm-provider-svnexe</artifactId>
+       <version>1.4</version>
+     </dependency>
+-  </dependencies>
++  </dependencies-->
+ 
+   <repositories>
+     <repository>
