@@ -6,7 +6,7 @@
 %global short_name commons-%{base_name}
 Name:          %{?scl_prefix}%{pkg_name}
 Version:       2.0
-Release:       11.13%{?dist}
+Release:       11.14%{?dist}
 Summary:       Commons Virtual File System
 License:       ASL 2.0
 Url:           http://commons.apache.org/%{base_name}/
@@ -29,8 +29,8 @@ BuildRequires:  %{?scl_prefix_java_common}mvn(commons-net:commons-net)
 BuildRequires:  %{?scl_prefix_java_common}mvn(org.apache.ant:ant)
 BuildRequires:  %{?scl_prefix_java_common}mvn(org.apache.commons:commons-compress)
 BuildRequires:  %{?scl_prefix_java_common}mvn(org.jdom:jdom)
-BuildRequires:  maven30-mvn(org.apache.commons:commons-parent:pom:) >= 26-7
-BuildRequires:  maven30-mvn(org.apache.maven.plugins:maven-antrun-plugin)
+BuildRequires:  %{?scl_prefix}mvn(org.apache.commons:commons-parent:pom:) >= 26-7
+BuildRequires:  %{?scl_prefix}mvn(org.apache.maven.plugins:maven-antrun-plugin)
 
 # test deps
 BuildRequires:  %{?scl_prefix_java_common}mvn(junit:junit)
@@ -78,7 +78,7 @@ This package contains javadoc for %{pkg_name}.
 
 %prep
 %setup -q -n %{short_name}-%{version}
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 perl -pi -e 's/\r$//g;' *.txt
 
@@ -100,13 +100,13 @@ sed -i "s|<module>dist</module>|<!--module>dist</module-->|" pom.xml
 %{?scl:EOF}
 
 %build
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_build -s
 %{?scl:EOF}
 
 %install
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_install
 
@@ -130,6 +130,9 @@ install -p -m 644 %{short_name} %{buildroot}%{_sysconfdir_java_common}/ant.d/%{s
 %config %{_sysconfdir_java_common}/ant.d/%{short_name}
 
 %changelog
+* Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 2.0-11.14
+- maven33 rebuild #2
+
 * Sat Jan 09 2016 Michal Srb <msrb@redhat.com> - 2.0-11.13
 - maven33 rebuild
 
