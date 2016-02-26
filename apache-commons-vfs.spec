@@ -6,7 +6,7 @@
 %global short_name commons-%{base_name}
 Name:          %{?scl_prefix}%{pkg_name}
 Version:       2.0
-Release:       11.14%{?dist}
+Release:       11.15%{?dist}
 Summary:       Commons Virtual File System
 License:       ASL 2.0
 Url:           http://commons.apache.org/%{base_name}/
@@ -20,7 +20,7 @@ Source0:       http://www.apache.org/dist/commons/%{base_name}/source/%{short_na
 # remove old vfs stuff
 Patch0:        %{pkg_name}-%{version}-build.patch
 
-BuildRequires:  %{?scl_prefix_java_common}maven-local
+BuildRequires:  %{?scl_prefix}maven-local
 BuildRequires:  %{?scl_prefix_java_common}mvn(com.jcraft:jsch)
 BuildRequires:  %{?scl_prefix_java_common}mvn(commons-collections:commons-collections)
 BuildRequires:  %{?scl_prefix_java_common}mvn(commons-httpclient:commons-httpclient)
@@ -130,6 +130,9 @@ install -p -m 644 %{short_name} %{buildroot}%{_sysconfdir_java_common}/ant.d/%{s
 %config %{_sysconfdir_java_common}/ant.d/%{short_name}
 
 %changelog
+* Mon Feb 08 2016 Michal Srb <msrb@redhat.com> - 2.0-11.15
+- Fix BR on maven-local & co.
+
 * Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 2.0-11.14
 - maven33 rebuild #2
 
